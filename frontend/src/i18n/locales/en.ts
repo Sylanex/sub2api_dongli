@@ -653,7 +653,7 @@ export default {
     created: 'Created',
     copyToClipboard: 'Copy to clipboard',
     copied: 'Copied!',
-    importToCcSwitch: 'Import to CCS',
+    importToCcSwitch: 'Quick Import',
     enable: 'Enable',
     disable: 'Disable',
     nameLabel: 'Name',
@@ -738,10 +738,10 @@ export default {
     ipBlacklistPlaceholder: '1.2.3.4\n5.6.0.0/16',
     ipBlacklistHint: 'One IP or CIDR per line. These IPs will be blocked from using this key.',
     ipRestrictionEnabled: 'IP restriction enabled',
-    ccSwitchNotInstalled: 'CC-Switch is not installed or the protocol handler is not registered. Please install CC-Switch first or manually copy the API key.',
+    ccSwitchNotInstalled: 'DongliAI-Switch is not installed or the protocol handler is not registered. Please install DongliAI-Switch first or manually copy the API key.',
     ccsClientSelect: {
       title: 'Select Client',
-      description: 'Please select the client type to import to CC-Switch:',
+      description: 'Please select the client type to import to DongliAI-Switch:',
       claudeCode: 'Claude Code',
       claudeCodeDesc: 'Import as Claude Code configuration',
       geminiCli: 'Gemini CLI',
@@ -5385,7 +5385,7 @@ export default {
         apiBaseUrl: 'API Base URL',
         apiBaseUrlPlaceholder: 'https://api.example.com',
         apiBaseUrlHint:
-          'Used for "Use Key" and "Import to CC Switch" features. Leave empty to use current site URL.',
+          'Used for "Use Key" and "Quick Import to DongliAI-Switch" features. Leave empty to use current site URL.',
         tablePreferencesTitle: 'Global Table Preferences',
         tablePreferencesDescription: 'Configure default pagination behavior for shared table components',
         tableDefaultPageSize: 'Default Rows Per Page',
@@ -5424,8 +5424,8 @@ export default {
         homeContentPlaceholder: 'Enter custom content for the home page. Supports Markdown & HTML. If a URL is entered, it will be displayed as an iframe.',
         homeContentHint: 'Customize the home page content. Supports Markdown/HTML. If you enter a URL (starting with http:// or https://), it will be used as an iframe src to embed an external page. When set, the default status information will no longer be displayed.',
         homeContentIframeWarning: '⚠️ iframe mode note: Some websites have X-Frame-Options or CSP security policies that prevent embedding in iframes. If the page appears blank or shows an error, please verify the target website allows embedding, or consider using HTML mode to build your own content.',
-        hideCcsImportButton: 'Hide CCS Import Button',
-        hideCcsImportButtonHint: 'When enabled, the "Import to CCS" button will be hidden on the API Keys page'
+        hideCcsImportButton: 'Hide Quick Import Button',
+        hideCcsImportButtonHint: 'When enabled, the "Quick Import" button (imports to DongliAI-Switch) will be hidden on the API Keys page'
       },
       purchase: {
         title: 'Recharge / Subscription Page',
