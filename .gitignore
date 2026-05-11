@@ -136,3 +136,7 @@ docs/*
 frontend/coverage/
 aicodex
 output/
+
+# IDE 个人历史/索引（每人独立维护，不入版本控制）
+.specstory/
+.cursorindexingignore

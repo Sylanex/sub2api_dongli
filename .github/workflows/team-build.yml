@@ -1,0 +1,93 @@
+name: Team Build
+
+# 团队二开分支构建：每次 push 到 team 分支自动构建并推送到 GHCR
+# - team-edge   : 始终指向 team 分支最新构建（测试环境用）
+# - team-<sha>  : 每次构建的稳定引用（便于回滚和精确追溯）
+#
+# 正式版本仍由 release.yml 在打 tag 时发布（例如 v0.1.125-team.1）。
+
+on:
+  push:
+    branches:
+      - team
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  # 与 .goreleaser.yaml 中的 GHCR 命名保持一致：ghcr.io/<owner-lower>/sub2api
+  IMAGE_NAME: sub2api
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set lowercase owner
+        id: owner
+        run: echo "value=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
+      - name: Compute build metadata
+        id: meta
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          BASE_VERSION=$(tr -d '\r\n' < backend/cmd/server/VERSION)
+          DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "short_sha=${SHORT_SHA}" >> $GITHUB_OUTPUT
+          echo "date=${DATE}" >> $GITHUB_OUTPUT
+          # team-edge 镜像内嵌的版本号：基线版本 + team-edge 后缀 + 短 SHA
+          echo "version=${BASE_VERSION}-team-edge+${SHORT_SHA}" >> $GITHUB_OUTPUT
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          # 仅 amd64 以加快构建；需要 arm64 可手动添加 linux/arm64
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ steps.owner.outputs.value }}/${{ env.IMAGE_NAME }}:team-edge
+            ${{ env.REGISTRY }}/${{ steps.owner.outputs.value }}/${{ env.IMAGE_NAME }}:team-${{ steps.meta.outputs.short_sha }}
+          build-args: |
+            VERSION=${{ steps.meta.outputs.version }}
+            COMMIT=${{ steps.meta.outputs.short_sha }}
+            DATE=${{ steps.meta.outputs.date }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Summary
+        run: |
+          OWNER="${{ steps.owner.outputs.value }}"
+          SHA="${{ steps.meta.outputs.short_sha }}"
+          {
+            echo "### Team build pushed"
+            echo ""
+            echo "- \`${{ env.REGISTRY }}/${OWNER}/${{ env.IMAGE_NAME }}:team-edge\`"
+            echo "- \`${{ env.REGISTRY }}/${OWNER}/${{ env.IMAGE_NAME }}:team-${SHA}\`"
+            echo ""
+            echo "Pull with:"
+            echo '```bash'
+            echo "docker pull ${{ env.REGISTRY }}/${OWNER}/${{ env.IMAGE_NAME }}:team-edge"
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY

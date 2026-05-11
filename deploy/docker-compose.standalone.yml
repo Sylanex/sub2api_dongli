@@ -12,7 +12,7 @@
 
 services:
   sub2api:
-    image: weishaw/sub2api:latest
+    image: ghcr.io/sylanex/sub2api:${SUB2API_VERSION:-team-edge}
     container_name: sub2api
     restart: unless-stopped
     ulimits:
