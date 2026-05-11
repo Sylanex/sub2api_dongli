@@ -274,7 +274,10 @@ jobs:
 
   sync-version-file:
     needs: [release]
-    if: ${{ needs.release.result == 'success' }}
+    # 团队 fork 约定：main 镜像 upstream，不在 main 上写 team 版本号。
+    # 仅对非团队 tag（如上游 v0.1.126）才同步 VERSION 到 default branch；
+    # 团队 tag（v*-team.N）跳过，避免 main 跟 upstream 在 VERSION 文件上分叉。
+    if: ${{ needs.release.result == 'success' && !contains(github.ref, '-team.') && !contains(github.event.inputs.tag, '-team.') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout default branch
