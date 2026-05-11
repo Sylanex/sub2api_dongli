@@ -1,112 +1,99 @@
 export default {
-  // Home Page
+  // Home Page (DongliAI landing)
   home: {
-    viewOnGithub: '在 GitHub 上查看',
+    // 共用 / 工具
     viewDocs: '查看文档',
     docs: '文档',
     switchToLight: '切换到浅色模式',
     switchToDark: '切换到深色模式',
-    dashboard: '控制台',
+    // 顶部导航
+    nav: {
+      home: '首页',
+      features: '功能',
+      channels: '模型渠道',
+      faq: '常见问题'
+    },
     login: '登录',
-    getStarted: '立即开始',
-    goToDashboard: '进入控制台',
-    // 新增：面向用户的价值主张
-    heroSubtitle: '一个密钥，畅用多个 AI 模型',
-    heroDescription: '无需管理多个订阅账号，一站式接入 Claude、GPT、Gemini 等主流 AI 服务',
-    tags: {
-      subscriptionToApi: '订阅转 API',
-      stickySession: '会话保持',
-      realtimeBilling: '按量计费'
+    register: '立即注册',
+    console: '控制台',
+    // Hero
+    hero: {
+      badge: '专为开发者打造',
+      titlePrefix: '稳定高速的',
+      titleAccent: 'AI 模型网关',
+      subtitleDefault:
+        '统一接入 Claude、GPT、Gemini 等主流模型，多账号智能调度，按 Token 精确计费，为开发者打造稳定可靠的 AI API 服务。',
+      getStarted: '立即开始',
+      goToDashboard: '进入控制台',
+      learnMore: '了解更多'
     },
-    // 用户痛点区块
-    painPoints: {
-      title: '你是否也遇到这些问题？',
-      items: {
-        expensive: {
-          title: '订阅费用高',
-          desc: '每个 AI 服务都要单独订阅，每月支出越来越多'
-        },
-        complex: {
-          title: '多账号难管理',
-          desc: '不同平台的账号、密钥分散各处，管理起来很麻烦'
-        },
-        unstable: {
-          title: '服务不稳定',
-          desc: '单一账号容易触发限制，影响正常使用'
-        },
-        noControl: {
-          title: '用量无法控制',
-          desc: '不知道钱花在哪了，也无法限制团队成员的使用'
-        }
-      }
-    },
-    // 解决方案区块
-    solutions: {
-      title: '我们帮你解决',
-      subtitle: '简单三步，开始省心使用 AI'
-    },
+    // 功能卡片
     features: {
-      unifiedGateway: '一键接入',
-      unifiedGatewayDesc: '获取一个 API 密钥，即可调用所有已接入的 AI 模型，无需分别申请。',
-      multiAccount: '稳定可靠',
-      multiAccountDesc: '智能调度多个上游账号，自动切换和负载均衡，告别频繁报错。',
-      balanceQuota: '用多少付多少',
-      balanceQuotaDesc: '按实际使用量计费，支持设置配额上限，团队用量一目了然。'
-    },
-    // 优势对比
-    comparison: {
-      title: '为什么选择我们？',
-      headers: {
-        feature: '对比项',
-        official: '官方订阅',
-        us: '本平台'
-      },
+      title: '为什么选择 {brand}',
+      subtitle: '不只是简单的 API 代理，而是为开发者打磨的完整网关体验',
       items: {
-        pricing: {
-          feature: '付费方式',
-          official: '固定月费，用不完也付',
-          us: '按量付费，用多少付多少'
+        price: {
+          title: '实惠价格',
+          desc: '相比市场同类服务更有优势的价格，让每一个开发者都能享受 AI 编程的便利。'
         },
-        models: {
-          feature: '模型选择',
-          official: '单一服务商',
-          us: '多模型随意切换'
+        stable: {
+          title: '稳定可靠',
+          desc: '多节点冗余部署，企业级后端架构，确保服务长时间稳定运行。'
         },
-        management: {
-          feature: '账号管理',
-          official: '每个服务单独管理',
-          us: '统一密钥，一站管理'
+        instant: {
+          title: '即时激活',
+          desc: '购买后立即获取激活码，开通即可使用，无需等待。'
         },
-        stability: {
-          feature: '服务稳定性',
-          official: '单账号易触发限制',
-          us: '多账号池，自动切换'
+        multiModel: {
+          title: '多模型支持',
+          desc: '支持 Claude、GPT、Gemini 等多家主流 AI 模型，满足不同场景需求。'
         },
-        control: {
-          feature: '用量控制',
-          official: '无法限制',
-          us: '可设配额、查明细'
+        lowLatency: {
+          title: '低延迟响应',
+          desc: '优化线路，智能路由，为你提供稳定快速的 API 响应体验。'
+        },
+        support: {
+          title: '技术支持',
+          desc: '专业团队提供技术支持，遇到问题随时获取帮助。'
         }
       }
     },
-    providers: {
-      title: '已支持的 AI 模型',
-      description: '一个 API，多种选择',
-      supported: '已支持',
-      soon: '即将推出',
-      claude: 'Claude',
-      gemini: 'Gemini',
-      antigravity: 'Antigravity',
-      more: '更多'
+    // 模型渠道占位
+    channels: {
+      titlePrefix: '多样化的',
+      titleAccent: '模型渠道',
+      subtitle: '提供多种 AI 模型渠道，满足不同场景的开发需求',
+      comingSoonBadge: '即将上线',
+      placeholderName: '渠道占位 {index}',
+      currentRate: '当前倍率',
+      quotaInfo: '额度说明',
+      quotaPending: '敬请期待',
+      supportedModels: '支持模型',
+      listPending: '渠道列表筹备中，敬请期待'
     },
-    // CTA 区块
-    cta: {
-      title: '准备好开始了吗？',
-      description: '注册即可获得免费试用额度，体验一站式 AI 服务',
-      button: '免费注册'
+    // FAQ 占位
+    faq: {
+      title: '常见问题',
+      subtitle: '关于 {brand} 服务的常见疑问解答',
+      placeholderQuestion: '问题占位 {index}（即将补充）',
+      placeholderAnswer: '答案内容筹备中，将在正式上线前补全。'
     },
+    // Footer
     footer: {
-      allRightsReserved: '保留所有权利。'
+      brandDesc: '专业的 AI 模型聚合网关，为开发者提供稳定、高速的 API 访问服务。',
+      productTitle: '产品',
+      productFeatures: '功能特性',
+      productChannels: '模型渠道',
+      productConsole: '控制台',
+      supportTitle: '支持',
+      supportFaq: '常见问题',
+      supportDocs: '使用文档',
+      supportQuickStart: '快速开始',
+      communityTitle: '社区',
+      communityPending: '敬请期待',
+      allRightsReserved: '保留所有权利。',
+      terms: '服务条款',
+      privacy: '隐私政策'
     }
   },
 
@@ -6533,9 +6520,9 @@ export default {
     // User tour steps
     user: {
       welcome: {
-        title: '👋 欢迎使用 Sub2API',
+        title: '👋 欢迎使用 DongliAI',
         description:
-          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">您好！欢迎来到 Sub2API AI 服务平台。</p><p style="margin-bottom: 12px;"><b>🎯 快速开始：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 创建 API 密钥</li><li>📋 复制密钥到您的应用</li><li>🚀 开始使用 AI 服务</li></ul><p style="color: #10b981; font-weight: 600;">只需 1 分钟，让我们开始吧 →</p></div>',
+          '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">您好！欢迎来到 DongliAI AI 服务平台。</p><p style="margin-bottom: 12px;"><b>🎯 快速开始：</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 创建 API 密钥</li><li>📋 复制密钥到您的应用</li><li>🚀 开始使用 AI 服务</li></ul><p style="color: #10b981; font-weight: 600;">只需 1 分钟，让我们开始吧 →</p></div>',
         nextBtn: '开始 🚀',
         prevBtn: '跳过'
       },

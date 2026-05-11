@@ -32,9 +32,16 @@
         <!-- Brand -->
         <a href="#top" class="flex items-center gap-2.5">
           <div
-            class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 shadow-lg shadow-primary-500/30"
+            class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-primary-400 to-primary-600 shadow-lg shadow-primary-500/30"
           >
+            <img
+              v-if="siteLogo"
+              :src="siteLogo"
+              :alt="siteName"
+              class="h-full w-full object-contain"
+            />
             <svg
+              v-else
               class="h-5 w-5 text-white"
               viewBox="0 0 24 24"
               fill="none"
@@ -54,27 +61,32 @@
           <a
             href="#top"
             class="text-sm text-slate-300 transition-colors hover:text-white"
-            >首页</a
+            >{{ t('home.nav.home') }}</a
           >
           <a
             href="#features"
             class="text-sm text-slate-300 transition-colors hover:text-white"
-            >功能</a
+            >{{ t('home.nav.features') }}</a
           >
           <a
             href="#channels"
             class="text-sm text-slate-300 transition-colors hover:text-white"
-            >模型渠道</a
+            >{{ t('home.nav.channels') }}</a
           >
           <a
             href="#faq"
             class="text-sm text-slate-300 transition-colors hover:text-white"
-            >常见问题</a
+            >{{ t('home.nav.faq') }}</a
           >
         </div>
 
         <!-- Actions -->
         <div class="flex items-center gap-3">
+          <!-- Language switcher (force dark variants in this header) -->
+          <div class="dark">
+            <LocaleSwitcher />
+          </div>
+
           <router-link
             v-if="isAuthenticated"
             :to="dashboardPath"
@@ -85,20 +97,20 @@
             >
               {{ userInitial }}
             </span>
-            <span>控制台</span>
+            <span>{{ t('home.console') }}</span>
           </router-link>
           <template v-else>
             <router-link
               to="/login"
               class="hidden rounded-full px-4 py-1.5 text-sm font-medium text-slate-300 transition-colors hover:text-white sm:inline-flex"
             >
-              登录
+              {{ t('home.login') }}
             </router-link>
             <router-link
               to="/register"
               class="inline-flex items-center rounded-full bg-primary-500 px-4 py-1.5 text-sm font-medium text-white shadow-lg shadow-primary-500/20 transition-all hover:bg-primary-400 hover:shadow-primary-500/40"
             >
-              立即注册
+              {{ t('home.register') }}
             </router-link>
           </template>
         </div>
@@ -128,18 +140,20 @@
               >
                 <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
               </svg>
-              <span class="text-xs font-medium text-primary-300">专为开发者打造</span>
+              <span class="text-xs font-medium text-primary-300">{{
+                t('home.hero.badge')
+              }}</span>
             </div>
 
             <!-- Headline -->
             <h1
               class="mb-6 text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-5xl xl:text-6xl"
             >
-              稳定高速的
+              {{ t('home.hero.titlePrefix') }}
               <span
                 class="bg-gradient-to-r from-primary-400 via-primary-300 to-cyan-300 bg-clip-text text-transparent"
               >
-                AI 模型网关
+                {{ t('home.hero.titleAccent') }}
               </span>
             </h1>
 
@@ -147,8 +161,7 @@
             <p
               class="mx-auto mb-10 max-w-2xl text-base leading-relaxed text-slate-400 md:text-lg lg:mx-0"
             >
-              统一接入 Claude、GPT、Gemini 等主流模型，多账号智能调度，按 Token 精确计费，
-              为开发者打造稳定可靠的 AI API 服务。
+              {{ siteSubtitle }}
             </p>
 
             <!-- CTAs -->
@@ -159,7 +172,11 @@
                 :to="isAuthenticated ? dashboardPath : '/register'"
                 class="group inline-flex items-center gap-2 rounded-lg bg-primary-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary-500/30 transition-all hover:bg-primary-400 hover:shadow-primary-500/50"
               >
-                {{ isAuthenticated ? '进入控制台' : '立即开始' }}
+                {{
+                  isAuthenticated
+                    ? t('home.hero.goToDashboard')
+                    : t('home.hero.getStarted')
+                }}
                 <svg
                   class="h-4 w-4 transition-transform group-hover:translate-x-0.5"
                   viewBox="0 0 24 24"
@@ -187,7 +204,7 @@
                 >
                   <path d="M12 6.253v13M2.25 12h19.5" />
                 </svg>
-                了解更多
+                {{ t('home.hero.learnMore') }}
               </a>
             </div>
           </div>
@@ -233,9 +250,13 @@
       <div class="mx-auto max-w-7xl">
         <div class="mb-14 text-center">
           <h2 class="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl">
-            为什么选择 <span class="text-primary-400">{{ siteName }}</span>
+            <i18n-t keypath="home.features.title" tag="span">
+              <template #brand>
+                <span class="text-primary-400">{{ siteName }}</span>
+              </template>
+            </i18n-t>
           </h2>
-          <p class="text-base text-slate-400">不只是简单的 API 代理，而是为开发者打磨的完整网关体验</p>
+          <p class="text-base text-slate-400">{{ t('home.features.subtitle') }}</p>
         </div>
 
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -271,9 +292,10 @@
       <div class="mx-auto max-w-7xl">
         <div class="mb-14 text-center">
           <h2 class="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl">
-            多样化的 <span class="text-primary-400">模型渠道</span>
+            {{ t('home.channels.titlePrefix') }}
+            <span class="text-primary-400">{{ t('home.channels.titleAccent') }}</span>
           </h2>
-          <p class="text-base text-slate-400">提供多种 AI 模型渠道，满足不同场景的开发需求</p>
+          <p class="text-base text-slate-400">{{ t('home.channels.subtitle') }}</p>
         </div>
 
         <div class="grid gap-6 md:grid-cols-3">
@@ -285,21 +307,25 @@
             <div class="mb-4 flex items-center gap-2">
               <span
                 class="rounded-md bg-slate-800 px-2 py-0.5 text-xs font-medium text-slate-500"
-                >即将上线</span
+                >{{ t('home.channels.comingSoonBadge') }}</span
               >
-              <span class="text-base font-semibold text-slate-400">渠道占位 {{ idx + 1 }}</span>
+              <span class="text-base font-semibold text-slate-400">{{
+                t('home.channels.placeholderName', { index: idx + 1 })
+              }}</span>
             </div>
             <div class="space-y-3 text-sm text-slate-500">
               <div class="flex items-center justify-between">
-                <span>当前倍率</span>
+                <span>{{ t('home.channels.currentRate') }}</span>
                 <span class="font-mono text-slate-400">— : —</span>
               </div>
               <div class="flex items-center justify-between">
-                <span>额度说明</span>
-                <span class="text-slate-400">敬请期待</span>
+                <span>{{ t('home.channels.quotaInfo') }}</span>
+                <span class="text-slate-400">{{ t('home.channels.quotaPending') }}</span>
               </div>
               <div class="border-t border-slate-800 pt-3">
-                <p class="mb-2 text-xs uppercase tracking-wider text-slate-600">支持模型</p>
+                <p class="mb-2 text-xs uppercase tracking-wider text-slate-600">{{
+                  t('home.channels.supportedModels')
+                }}</p>
                 <div class="flex flex-wrap gap-1.5">
                   <span
                     v-for="n in 3"
@@ -313,7 +339,7 @@
         </div>
 
         <div class="mt-10 text-center">
-          <span class="text-sm text-slate-500">渠道列表筹备中，敬请期待</span>
+          <span class="text-sm text-slate-500">{{ t('home.channels.listPending') }}</span>
         </div>
       </div>
     </section>
@@ -322,8 +348,12 @@
     <section id="faq" class="relative z-10 px-6 py-24">
       <div class="mx-auto max-w-3xl">
         <div class="mb-14 text-center">
-          <h2 class="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl">常见问题</h2>
-          <p class="text-base text-slate-400">关于 {{ siteName }} 服务的常见疑问解答</p>
+          <h2 class="mb-4 text-3xl font-bold tracking-tight text-white md:text-4xl">{{
+            t('home.faq.title')
+          }}</h2>
+          <p class="text-base text-slate-400">{{
+            t('home.faq.subtitle', { brand: siteName })
+          }}</p>
         </div>
 
         <div class="space-y-3">
@@ -335,7 +365,7 @@
             <summary
               class="flex cursor-pointer items-center justify-between px-5 py-4 text-sm font-medium text-slate-300"
             >
-              <span>问题占位 {{ idx + 1 }}（即将补充）</span>
+              <span>{{ t('home.faq.placeholderQuestion', { index: idx + 1 }) }}</span>
               <svg
                 class="h-4 w-4 text-slate-500 transition-transform group-open:rotate-180"
                 viewBox="0 0 24 24"
@@ -349,7 +379,7 @@
               </svg>
             </summary>
             <div class="border-t border-slate-800 px-5 py-4 text-sm leading-relaxed text-slate-500">
-              答案内容筹备中，将在正式上线前补全。
+              {{ t('home.faq.placeholderAnswer') }}
             </div>
           </details>
         </div>
@@ -364,9 +394,16 @@
           <div class="col-span-2 md:col-span-1">
             <div class="mb-3 flex items-center gap-2.5">
               <div
-                class="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary-400 to-primary-600"
+                class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-primary-400 to-primary-600"
               >
+                <img
+                  v-if="siteLogo"
+                  :src="siteLogo"
+                  :alt="siteName"
+                  class="h-full w-full object-contain"
+                />
                 <svg
+                  v-else
                   class="h-4 w-4 text-white"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -381,19 +418,25 @@
               <span class="text-sm font-semibold text-white">{{ siteName }}</span>
             </div>
             <p class="text-sm leading-relaxed text-slate-500">
-              专业的 AI 模型聚合网关，为开发者提供稳定、高速的 API 访问服务。
+              {{ t('home.footer.brandDesc') }}
             </p>
           </div>
 
           <!-- Product col -->
           <div>
-            <h4 class="mb-3 text-sm font-semibold text-white">产品</h4>
+            <h4 class="mb-3 text-sm font-semibold text-white">{{
+              t('home.footer.productTitle')
+            }}</h4>
             <ul class="space-y-2 text-sm text-slate-500">
-              <li><a href="#features" class="hover:text-slate-300">功能特性</a></li>
-              <li><a href="#channels" class="hover:text-slate-300">模型渠道</a></li>
+              <li><a href="#features" class="hover:text-slate-300">{{
+                t('home.footer.productFeatures')
+              }}</a></li>
+              <li><a href="#channels" class="hover:text-slate-300">{{
+                t('home.footer.productChannels')
+              }}</a></li>
               <li>
                 <router-link :to="isAuthenticated ? dashboardPath : '/login'" class="hover:text-slate-300"
-                  >控制台</router-link
+                  >{{ t('home.footer.productConsole') }}</router-link
                 >
               </li>
             </ul>
@@ -401,26 +444,34 @@
 
           <!-- Support col -->
           <div>
-            <h4 class="mb-3 text-sm font-semibold text-white">支持</h4>
+            <h4 class="mb-3 text-sm font-semibold text-white">{{
+              t('home.footer.supportTitle')
+            }}</h4>
             <ul class="space-y-2 text-sm text-slate-500">
-              <li><a href="#faq" class="hover:text-slate-300">常见问题</a></li>
+              <li><a href="#faq" class="hover:text-slate-300">{{
+                t('home.footer.supportFaq')
+              }}</a></li>
               <li>
                 <a v-if="docUrl" :href="docUrl" target="_blank" rel="noopener noreferrer" class="hover:text-slate-300"
-                  >使用文档</a
+                  >{{ t('home.footer.supportDocs') }}</a
                 >
-                <span v-else class="opacity-50">使用文档</span>
+                <span v-else class="opacity-50">{{ t('home.footer.supportDocs') }}</span>
               </li>
               <li>
-                <router-link to="/register" class="hover:text-slate-300">快速开始</router-link>
+                <router-link to="/register" class="hover:text-slate-300">{{
+                  t('home.footer.supportQuickStart')
+                }}</router-link>
               </li>
             </ul>
           </div>
 
           <!-- Community col -->
           <div>
-            <h4 class="mb-3 text-sm font-semibold text-white">社区</h4>
+            <h4 class="mb-3 text-sm font-semibold text-white">{{
+              t('home.footer.communityTitle')
+            }}</h4>
             <ul class="space-y-2 text-sm text-slate-500">
-              <li class="opacity-60">敬请期待</li>
+              <li class="opacity-60">{{ t('home.footer.communityPending') }}</li>
             </ul>
           </div>
         </div>
@@ -429,11 +480,15 @@
           class="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/5 pt-8 sm:flex-row"
         >
           <p class="text-xs text-slate-600">
-            &copy; {{ currentYear }} {{ siteName }}. 保留所有权利。
+            &copy; {{ currentYear }} {{ siteName }}. {{ t('home.footer.allRightsReserved') }}
           </p>
           <div class="flex items-center gap-5 text-xs text-slate-600">
-            <router-link to="/legal/terms" class="hover:text-slate-400">服务条款</router-link>
-            <router-link to="/legal/privacy" class="hover:text-slate-400">隐私政策</router-link>
+            <router-link to="/legal/terms" class="hover:text-slate-400">{{
+              t('home.footer.terms')
+            }}</router-link>
+            <router-link to="/legal/privacy" class="hover:text-slate-400">{{
+              t('home.footer.privacy')
+            }}</router-link>
           </div>
         </div>
       </div>
@@ -443,13 +498,22 @@
 
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useAuthStore, useAppStore } from '@/stores'
+import LocaleSwitcher from '@/components/common/LocaleSwitcher.vue'
+
+const { t } = useI18n()
 
 const authStore = useAuthStore()
 const appStore = useAppStore()
 
-// Brand: 硬编码为 DongliAI（不受后台 site_name 影响，避免被 Sub2API 覆盖）
-const siteName = 'DongliAI'
+// Brand / site config — sourced from app store so admin's site_name & site_logo
+// settings are respected (legacy 'Sub2API' is already coerced to DongliAI in applySettings).
+const siteName = computed(() => appStore.siteName)
+const siteLogo = computed(() => appStore.siteLogo)
+const siteSubtitle = computed(
+  () => appStore.cachedPublicSettings?.site_subtitle || t('home.hero.subtitleDefault'),
+)
 const docUrl = computed(() => appStore.cachedPublicSettings?.doc_url || appStore.docUrl || '')
 const homeContent = computed(() => appStore.cachedPublicSettings?.home_content || '')
 
@@ -470,49 +534,49 @@ const userInitial = computed(() => {
 
 const currentYear = computed(() => new Date().getFullYear())
 
-// Features grid (6 cards, matches pincc layout)
-const features = [
+// Features grid (6 cards, matches pincc layout). Titles/descs are i18n-driven.
+const features = computed(() => [
   {
-    title: '实惠价格',
-    desc: '相比市场同类服务更有优势的价格，让每一个开发者都能享受 AI 编程的便利。',
+    title: t('home.features.items.price.title'),
+    desc: t('home.features.items.price.desc'),
     iconBg: 'bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-emerald-500/30',
     iconPath:
       '<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V6m0 12v2m9-7a9 9 0 11-18 0 9 9 0 0118 0z" />',
   },
   {
-    title: '稳定可靠',
-    desc: '多节点冗余部署，企业级后端架构，确保服务长时间稳定运行。',
+    title: t('home.features.items.stable.title'),
+    desc: t('home.features.items.stable.desc'),
     iconBg: 'bg-gradient-to-br from-sky-500 to-sky-600 shadow-sky-500/30',
     iconPath:
       '<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />',
   },
   {
-    title: '即时激活',
-    desc: '购买后立即获取激活码，开通即可使用，无需等待。',
+    title: t('home.features.items.instant.title'),
+    desc: t('home.features.items.instant.desc'),
     iconBg: 'bg-gradient-to-br from-amber-500 to-amber-600 shadow-amber-500/30',
     iconPath: '<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />',
   },
   {
-    title: '多模型支持',
-    desc: '支持 Claude、GPT、Gemini 等多家主流 AI 模型，满足不同场景需求。',
+    title: t('home.features.items.multiModel.title'),
+    desc: t('home.features.items.multiModel.desc'),
     iconBg: 'bg-gradient-to-br from-violet-500 to-violet-600 shadow-violet-500/30',
     iconPath:
       '<path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />',
   },
   {
-    title: '低延迟响应',
-    desc: '优化线路，智能路由，为你提供稳定快速的 API 响应体验。',
+    title: t('home.features.items.lowLatency.title'),
+    desc: t('home.features.items.lowLatency.desc'),
     iconBg: 'bg-gradient-to-br from-cyan-500 to-cyan-600 shadow-cyan-500/30',
     iconPath: '<path d="M13 10V3L4 14h7v7l9-11h-7z" />',
   },
   {
-    title: '技术支持',
-    desc: '专业团队提供技术支持，遇到问题随时获取帮助。',
+    title: t('home.features.items.support.title'),
+    desc: t('home.features.items.support.desc'),
     iconBg: 'bg-gradient-to-br from-rose-500 to-rose-600 shadow-rose-500/30',
     iconPath:
       '<path d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414" />',
   },
-]
+])
 
 onMounted(() => {
   authStore.checkAuth()
