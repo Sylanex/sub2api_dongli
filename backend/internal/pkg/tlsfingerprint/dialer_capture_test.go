@@ -48,6 +48,15 @@ func TestDialerAgainstCaptureServer(t *testing.T) {
 		captureURL = "https://tls.sub2api.org:8090"
 	}
 
+	// Probe the capture server before running the suite. CI runners and most dev
+	// environments cannot reach the upstream server, so we skip rather than fail.
+	probeClient := &http.Client{Timeout: 5 * time.Second}
+	if resp, err := probeClient.Head(captureURL); err != nil {
+		t.Skipf("capture server %s unreachable, skipping: %v", captureURL, err)
+	} else {
+		resp.Body.Close()
+	}
+
 	tests := []struct {
 		name    string
 		profile *Profile
