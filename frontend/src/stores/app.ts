@@ -22,10 +22,15 @@ export const useAppStore = defineStore('app', () => {
   const loading = ref<boolean>(false)
   const toasts = ref<Toast[]>([])
 
+  // Brand override: legacy backend default 'Sub2API' is coerced to current brand.
+  // Admins can still set a custom site_name in settings — only the legacy default is replaced.
+  const BRAND_NAME = 'DongliAI'
+  const LEGACY_DEFAULT_SITE_NAME = 'Sub2API'
+
   // Public settings cache state
   const publicSettingsLoaded = ref<boolean>(false)
   const publicSettingsLoading = ref<boolean>(false)
-  const siteName = ref<string>('Sub2API')
+  const siteName = ref<string>(BRAND_NAME)
   const siteLogo = ref<string>('')
   const siteVersion = ref<string>('')
   const contactInfo = ref<string>('')
@@ -292,7 +297,9 @@ export const useAppStore = defineStore('app', () => {
       window.__APP_CONFIG__ = { ...config }
     }
     cachedPublicSettings.value = config
-    siteName.value = config.site_name || 'Sub2API'
+    const incomingName = config.site_name || ''
+    siteName.value =
+      !incomingName || incomingName === LEGACY_DEFAULT_SITE_NAME ? BRAND_NAME : incomingName
     siteLogo.value = config.site_logo || ''
     siteVersion.value = config.version || ''
     contactInfo.value = config.contact_info || ''

@@ -1,112 +1,99 @@
 export default {
-  // Home Page
+  // Home Page (DongliAI landing)
   home: {
-    viewOnGithub: 'View on GitHub',
+    // Shared / utility
     viewDocs: 'View Documentation',
     docs: 'Docs',
     switchToLight: 'Switch to Light Mode',
     switchToDark: 'Switch to Dark Mode',
-    dashboard: 'Dashboard',
-    login: 'Login',
-    getStarted: 'Get Started',
-    goToDashboard: 'Go to Dashboard',
-    // User-focused value proposition
-    heroSubtitle: 'One Key, All AI Models',
-    heroDescription: 'No need to manage multiple subscriptions. Access Claude, GPT, Gemini and more with a single API key',
-    tags: {
-      subscriptionToApi: 'Subscription to API',
-      stickySession: 'Session Persistence',
-      realtimeBilling: 'Pay As You Go'
+    // Top nav
+    nav: {
+      home: 'Home',
+      features: 'Features',
+      channels: 'Channels',
+      faq: 'FAQ'
     },
-    // Pain points section
-    painPoints: {
-      title: 'Sound Familiar?',
-      items: {
-        expensive: {
-          title: 'High Subscription Costs',
-          desc: 'Paying for multiple AI subscriptions that add up every month'
-        },
-        complex: {
-          title: 'Account Chaos',
-          desc: 'Managing scattered accounts and API keys across different platforms'
-        },
-        unstable: {
-          title: 'Service Interruptions',
-          desc: 'Single accounts hitting rate limits and disrupting your workflow'
-        },
-        noControl: {
-          title: 'No Usage Control',
-          desc: "Can't track where your money goes or limit team member usage"
-        }
-      }
+    login: 'Sign In',
+    register: 'Sign Up',
+    console: 'Console',
+    // Hero
+    hero: {
+      badge: 'Built for Developers',
+      titlePrefix: 'Stable, high-speed',
+      titleAccent: 'AI Model Gateway',
+      subtitleDefault:
+        'Unified access to Claude, GPT, Gemini and more, with multi-account smart routing and per-token billing — a reliable AI API service crafted for developers.',
+      getStarted: 'Get Started',
+      goToDashboard: 'Go to Dashboard',
+      learnMore: 'Learn More'
     },
-    // Solutions section
-    solutions: {
-      title: 'We Solve These Problems',
-      subtitle: 'Three simple steps to stress-free AI access'
-    },
+    // Features grid
     features: {
-      unifiedGateway: 'One-Click Access',
-      unifiedGatewayDesc: 'Get a single API key to call all connected AI models. No separate applications needed.',
-      multiAccount: 'Always Reliable',
-      multiAccountDesc: 'Smart routing across multiple upstream accounts with automatic failover. Say goodbye to errors.',
-      balanceQuota: 'Pay What You Use',
-      balanceQuotaDesc: 'Usage-based billing with quota limits. Full visibility into team consumption.'
-    },
-    // Comparison section
-    comparison: {
-      title: 'Why Choose Us?',
-      headers: {
-        feature: 'Comparison',
-        official: 'Official Subscriptions',
-        us: 'Our Platform'
-      },
+      title: 'Why Choose {brand}',
+      subtitle: 'More than a simple API proxy — a complete gateway experience polished for developers.',
       items: {
-        pricing: {
-          feature: 'Pricing',
-          official: 'Fixed monthly fee, pay even if unused',
-          us: 'Pay only for what you use'
+        price: {
+          title: 'Affordable Pricing',
+          desc: 'Competitive pricing compared to similar services — AI development within reach for every developer.'
         },
-        models: {
-          feature: 'Model Selection',
-          official: 'Single provider only',
-          us: 'Switch between models freely'
+        stable: {
+          title: 'Reliable & Stable',
+          desc: 'Multi-node redundancy with enterprise-grade backend architecture for long-running stability.'
         },
-        management: {
-          feature: 'Account Management',
-          official: 'Manage each service separately',
-          us: 'Unified key, one dashboard'
+        instant: {
+          title: 'Instant Activation',
+          desc: 'Get an activation code immediately after purchase — start using right away, no waiting.'
         },
-        stability: {
-          feature: 'Stability',
-          official: 'Single account rate limits',
-          us: 'Multi-account pool, auto-failover'
+        multiModel: {
+          title: 'Multi-Model Support',
+          desc: 'Supports Claude, GPT, Gemini and other mainstream AI models to fit different scenarios.'
         },
-        control: {
-          feature: 'Usage Control',
-          official: 'Not available',
-          us: 'Quotas & detailed analytics'
+        lowLatency: {
+          title: 'Low-Latency Response',
+          desc: 'Optimized routing and smart dispatch deliver a stable, fast API response experience.'
+        },
+        support: {
+          title: 'Technical Support',
+          desc: 'A professional team behind technical support — help is available whenever you need it.'
         }
       }
     },
-    providers: {
-      title: 'Supported AI Models',
-      description: 'One API, Multiple Choices',
-      supported: 'Supported',
-      soon: 'Soon',
-      claude: 'Claude',
-      gemini: 'Gemini',
-      antigravity: 'Antigravity',
-      more: 'More'
+    // Channels placeholder
+    channels: {
+      titlePrefix: 'Diverse',
+      titleAccent: 'Model Channels',
+      subtitle: 'A variety of AI model channels to fit different development scenarios.',
+      comingSoonBadge: 'Coming Soon',
+      placeholderName: 'Channel Placeholder {index}',
+      currentRate: 'Current Rate',
+      quotaInfo: 'Quota Info',
+      quotaPending: 'Stay tuned',
+      supportedModels: 'Supported Models',
+      listPending: 'Channel list is in preparation — stay tuned.'
     },
-    // CTA section
-    cta: {
-      title: 'Ready to Get Started?',
-      description: 'Sign up now and get free trial credits to experience seamless AI access',
-      button: 'Sign Up Free'
+    // FAQ placeholder
+    faq: {
+      title: 'FAQ',
+      subtitle: 'Common questions about the {brand} service.',
+      placeholderQuestion: 'Question Placeholder {index} (coming soon)',
+      placeholderAnswer: 'Answer content is in preparation and will be completed before launch.'
     },
+    // Footer
     footer: {
-      allRightsReserved: 'All rights reserved.'
+      brandDesc: 'A professional AI model aggregation gateway — stable, high-speed API access for developers.',
+      productTitle: 'Product',
+      productFeatures: 'Features',
+      productChannels: 'Channels',
+      productConsole: 'Console',
+      supportTitle: 'Support',
+      supportFaq: 'FAQ',
+      supportDocs: 'Documentation',
+      supportQuickStart: 'Quick Start',
+      communityTitle: 'Community',
+      communityPending: 'Stay tuned',
+      allRightsReserved: 'All rights reserved.',
+      terms: 'Terms of Service',
+      privacy: 'Privacy Policy'
     }
   },
 
@@ -369,7 +356,6 @@ export default {
     collapse: 'Collapse',
     expand: 'Expand',
     logout: 'Logout',
-    github: 'GitHub',
     mySubscriptions: 'My Subscriptions',
     buySubscription: 'Recharge / Subscription',
     docs: 'Docs',
@@ -6354,8 +6340,8 @@ export default {
     // User tour steps
     user: {
       welcome: {
-        title: '👋 Welcome to Sub2API',
-        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Hello! Welcome to the Sub2API AI service platform.</p><p style="margin-bottom: 12px;"><b>🎯 Quick Start:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 Create API Key</li><li>📋 Copy key to your application</li><li>🚀 Start using AI services</li></ul><p style="color: #10b981; font-weight: 600;">Just 1 minute, let\'s get started →</p></div>',
+        title: '👋 Welcome to DongliAI',
+        description: '<div style="line-height: 1.8;"><p style="margin-bottom: 16px;">Hello! Welcome to the DongliAI AI service platform.</p><p style="margin-bottom: 12px;"><b>🎯 Quick Start:</b></p><ul style="margin-left: 20px; margin-bottom: 16px;"><li>🔑 Create API Key</li><li>📋 Copy key to your application</li><li>🚀 Start using AI services</li></ul><p style="color: #10b981; font-weight: 600;">Just 1 minute, let\'s get started →</p></div>',
         nextBtn: 'Start 🚀',
         prevBtn: 'Skip'
       },
